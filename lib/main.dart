@@ -1,10 +1,13 @@
 import 'dart:io';
+import 'dart:typed_data';
 
-import 'package:device_simulator/device_simulator.dart';
+// import 'package:device_simulator/device_simulator.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf_poc/pdf_format.dart';
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 // import 'package:pdf/widgets.dart';
 
 const bool debugEnableDeviceSimulator = true;
@@ -20,11 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DeviceSimulator(
-        brightness: Brightness.dark,
-        enable: debugEnableDeviceSimulator,
-        child: Home(),
-      ),
+      home: Home(),
     );
   }
 }
@@ -60,12 +59,29 @@ viewPdf(context) async {
   print(path);
   final file = File(path);
   await file.writeAsBytes(pdf.save());
+
   // return PdfViewerPage(path: path);
-  Navigator.of(context).push(
-    MaterialPageRoute(
-      builder: (_) => PdfViewerPage(path: path),
-    ),
-  );
+
+  // Navigator.of(context).push(
+  //   MaterialPageRoute(
+  //     builder: (_) => PdfViewerPage(path: path),
+  //   ),
+  // );
+
+  try {
+    final Uint8List bytes1 = await file.readAsBytes();
+    //  rootBundle.load('assets/image1.png');
+
+    await Share.files(
+        'esys images',
+        {
+          'esys.pdf': bytes1,
+        },
+        '*/*',
+        text: 'My optional text.');
+  } catch (e) {
+    print('error: $e');
+  }
 }
 
 class PdfViewerPage extends StatelessWidget {

@@ -71,27 +71,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
-  custom_navigator:
-    dependency: transitive
-    description:
-      name: custom_navigator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.3.0"
-  device_simulator:
+  esys_flutter_share:
     dependency: "direct main"
     description:
-      name: device_simulator
+      name: esys_flutter_share
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.6"
-  downloads_path_provider:
-    dependency: "direct main"
-    description:
-      name: downloads_path_provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
+    version: "1.0.2"
   flutter:
     dependency: "direct main"
     description: flutter
