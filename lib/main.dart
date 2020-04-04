@@ -52,7 +52,18 @@ class Home extends StatelessWidget {
 }
 
 viewPdf(context) async {
-  final pdf = createSamplePdf();
+  final pdf = createLedgerPdf(
+    companyName: 'ABC',
+    partyName: 'DEF Enterprises GalaxyCity',
+    startDate: '03-02-2020',
+    endDate: '31-03-2020',
+    ledgerList: [
+      ['Date', 'Particulars', 'Vch Type', 'Vch No.', 'Debit', 'Credit'],
+      ['9-1-2020', 'Cr Opening Balance', '', '', '31,152.60', ''],
+      ['', 'xyz ns', '15 NOS 2300/NOS', '34,500.00', '', ''],
+
+    ],
+  );
 
   final String dir = (await getExternalStorageDirectory()).path;
   final path = "$dir/example.pdf";
@@ -62,26 +73,26 @@ viewPdf(context) async {
 
   // return PdfViewerPage(path: path);
 
-  // Navigator.of(context).push(
-  //   MaterialPageRoute(
-  //     builder: (_) => PdfViewerPage(path: path),
-  //   ),
-  // );
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => PdfViewerPage(path: path),
+    ),
+  );
 
-  try {
-    final Uint8List bytes1 = await file.readAsBytes();
-    //  rootBundle.load('assets/image1.png');
+  // try {
+  //   final Uint8List bytes1 = await file.readAsBytes();
+  //   //  rootBundle.load('assets/image1.png');
 
-    await Share.files(
-        'esys images',
-        {
-          'esys.pdf': bytes1,
-        },
-        '*/*',
-        text: 'My optional text.');
-  } catch (e) {
-    print('error: $e');
-  }
+  //   await Share.files(
+  //       'esys images',
+  //       {
+  //         'esys.pdf': bytes1,
+  //       },
+  //       '*/*',
+  //       text: 'My optional text.');
+  // } catch (e) {
+  //   print('error: $e');
+  // }
 }
 
 class PdfViewerPage extends StatelessWidget {
